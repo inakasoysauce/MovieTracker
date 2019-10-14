@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/account"
+            android:icon="@drawable/ic_beach_access_black_24dp"
+            android:title="My Account" />
+    <item
+            android:id="@+id/settings"
+            android:icon="@android:drawable/ic_menu_set_as"
+            android:title="Settings" />
+    <item
+            android:id="@+id/mycart"
+            android:icon="@android:drawable/sym_contact_card"
+            android:title="My Cart" />
+
+</menu>

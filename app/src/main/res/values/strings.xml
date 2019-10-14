@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MovieTracker</string>
+    <string name="movie_poster_image_view">Movie poster</string>
+    <string name="api_key">555dd34b51d2f5b7f9fdb39e04986933</string>
+    <string name="search_here">Search here</string>
+    <string name="details_rating">%1$s/10</string>
+    <string name="details_vote_count">%1$s votes</string>
+    <string name="details_budget">%1$s$</string>
+    <string name="search_result_rating">%1$s (%2$s votes)</string>
+    <string name="no_results">No results</string>
+    <string name="no_connection">No connection!</string>
+    <string name="offline_movies">Offline Movies</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>
