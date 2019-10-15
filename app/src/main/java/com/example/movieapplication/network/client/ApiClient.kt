@@ -29,7 +29,7 @@ class ApiClient {
 
     suspend fun getMovieList(title: String) : Response<SearchResult> = service.getMoviesByTitle(API_KEY,title)
 
-    fun getMovieDetails(id: String) : Deferred<Response<Movie>> =  service.getMovieById(id,API_KEY)
+    fun getMovieDetailsAsync(id: String) : Deferred<Response<Movie>> =  service.getMovieByIdAsync(id,API_KEY)
 
-    fun getMovieCast(id: String) : Deferred<Response<MovieCast>> = service.getMovieCast(id,API_KEY)
+    fun getMovieCastAsync(id: String) : Deferred<Response<MovieCast>> = service.getMovieCastAsync(id,API_KEY)
 }

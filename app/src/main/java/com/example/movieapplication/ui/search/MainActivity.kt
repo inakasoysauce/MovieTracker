@@ -3,7 +3,6 @@ package com.example.movieapplication.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -13,7 +12,6 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapplication.MovieTracker
 import com.example.movieapplication.R
-import com.example.movieapplication.event_bus.EventBus
 import com.example.movieapplication.event_bus.NetworkEvent
 import com.example.movieapplication.network.NetworkStatus
 import com.example.movieapplication.network.model.SearchResultItem
@@ -39,9 +37,6 @@ class MainActivity : AppCompatActivity(), ISearchScreen, MovieAdapter.MovieClick
     private var saved: Boolean = false
 
     @Inject
-    lateinit var eventBus: EventBus
-
-    @Inject
     lateinit var presenter: SearchPresenter
 
     @Inject
@@ -65,18 +60,13 @@ class MainActivity : AppCompatActivity(), ISearchScreen, MovieAdapter.MovieClick
         subscribeOnNetworkStatusEvent()
         setTextChangeEvent()
         initDoneButton()
+        setSearchButton()
         initNavigationView()
     }
 
-    @Suppress("DEPRECATION")
     private fun subscribeOnNetworkStatusEvent() {
-        /*val networkStatusReceiver = NetworkStatusReceiver()
-        val intentFilter = IntentFilter()
-        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
-        registerReceiver(networkStatusReceiver,intentFilter)*/
         networkMonitor.enable(this)
         NetworkEvent.event += { status ->
-            Log.i("NetworkStatus","Received")
             if (status == NetworkStatus.ONLINE) {
                 searchForMovie(search_text.text.toString())
             }
@@ -117,6 +107,12 @@ class MainActivity : AppCompatActivity(), ISearchScreen, MovieAdapter.MovieClick
                 searchForMovie(search_text.text.toString())
             }
             return@setOnEditorActionListener false
+        }
+    }
+
+    private fun setSearchButton() {
+        btn_search.setOnClickListener {
+            searchForMovie(search_text.text.toString())
         }
     }
 
@@ -188,16 +184,5 @@ class MainActivity : AppCompatActivity(), ISearchScreen, MovieAdapter.MovieClick
 
     private fun hideLoading() {
         progress_bar.visibility = View.GONE
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList("movies", adapter?.getMovies())
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        adapter?.addMovies(savedInstanceState.getParcelableArrayList("movies"))
-        saved = true
     }
 }

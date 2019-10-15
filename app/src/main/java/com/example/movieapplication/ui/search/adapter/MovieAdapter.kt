@@ -13,10 +13,9 @@ import com.example.movieapplication.util.ConfigInfo.imageUrl
 import com.example.movieapplication.util.GlideApp
 import kotlinx.android.synthetic.main.search_result_item.view.*
 
-class MovieAdapter(listener: MovieClickedListener) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val listener: MovieClickedListener) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var movies : ArrayList<SearchResultItem>
-    private val listener : MovieClickedListener
+    private var movies : ArrayList<SearchResultItem> = ArrayList()
 
     interface MovieClickedListener {
         fun goToDetails(id: String)
@@ -24,10 +23,6 @@ class MovieAdapter(listener: MovieClickedListener) : RecyclerView.Adapter<MovieA
         fun getContext(): Context
     }
 
-    init {
-        movies = ArrayList()
-        this.listener = listener
-    }
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MovieViewHolder {
         val itemView = LayoutInflater
             .from(p0.context)
@@ -54,7 +49,7 @@ class MovieAdapter(listener: MovieClickedListener) : RecyclerView.Adapter<MovieA
 
     fun addMovies(movies: ArrayList<SearchResultItem>?){
         movies?.let {
-            this.movies = it
+            this.movies.addAll(it)
         }
         notifyDataSetChanged()
     }
@@ -62,10 +57,6 @@ class MovieAdapter(listener: MovieClickedListener) : RecyclerView.Adapter<MovieA
     fun clear() {
         movies.clear()
         notifyDataSetChanged()
-    }
-
-    fun getMovies(): ArrayList<SearchResultItem> {
-        return movies
     }
 
     class MovieViewHolder(itemView: View, listener: MovieClickedListener) : RecyclerView.ViewHolder(itemView) {

@@ -32,8 +32,8 @@ class DetailsPresenter : BasePresenter<IDetailsScreen> {
     suspend fun getMovieDetails(id : String?) {
         id?.let {
             try {
-                val detailsResponse = client.getMovieDetails(it)
-                val castResponse = client.getMovieCast(it)
+                val detailsResponse = client.getMovieDetailsAsync(it)
+                val castResponse = client.getMovieCastAsync(it)
                 handleResponses(detailsResponse.await(), castResponse.await())
             } catch (e: Exception) {
                 view?.showDetails(null)

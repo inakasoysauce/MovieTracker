@@ -14,9 +14,9 @@ interface ApiService {
     suspend fun getMoviesByTitle(@Query("api_key") api_key: String, @Query("query") title: String) : Response<SearchResult>
 
     @GET("movie/{id}")
-    fun getMovieById(@Path("id") id: String, @Query("api_key") api_key: String) : Deferred<Response<Movie>>
+    fun getMovieByIdAsync(@Path("id") id: String, @Query("api_key") api_key: String) : Deferred<Response<Movie>>
 
     @GET("movie/{id}/credits")
-    fun getMovieCast(@Path("id") id: String, @Query("api_key") api_key: String) : Deferred<Response<MovieCast>>
+    fun getMovieCastAsync(@Path("id") id: String, @Query("api_key") api_key: String) : Deferred<Response<MovieCast>>
 
 }

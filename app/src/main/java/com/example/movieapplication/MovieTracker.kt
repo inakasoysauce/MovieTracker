@@ -47,7 +47,7 @@ class MovieTracker : Application() {
 
     private fun initDagger(): AppComponent =
         DaggerAppComponent.builder()
-            .presenterModule(PresenterModule(this))
+            .presenterModule(PresenterModule())
             .serviceModule(ServiceModule())
             .build()
 }

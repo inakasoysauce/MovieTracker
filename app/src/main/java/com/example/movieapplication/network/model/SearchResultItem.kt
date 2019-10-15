@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-class SearchResultItem : Parcelable {
+class SearchResultItem {
     val id: Int? = null
 
     @SerializedName("poster_path")
@@ -20,22 +20,4 @@ class SearchResultItem : Parcelable {
 
     @SerializedName("vote_count")
     val voteCount: Int? = null
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<SearchResultItem> {
-        override fun createFromParcel(parcel: Parcel): SearchResultItem {
-            return SearchResultItem()
-        }
-
-        override fun newArray(size: Int): Array<SearchResultItem?> {
-            return arrayOfNulls(size)
-        }
-    }
 }
