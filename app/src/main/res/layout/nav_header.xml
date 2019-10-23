@@ -3,22 +3,28 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/navbar_header_background"
-        android:alpha="0.7"
+        android:background="@null"
         android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
             android:id="@+id/profile_img_container"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginStart="30dp"
             app:cardCornerRadius="50dp"
             app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:id="@+id/img_nav_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/dummy_profile_picture" />
 
     </androidx.cardview.widget.CardView>
 
@@ -26,30 +32,36 @@
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/center_line"
-            app:layout_constraintStart_toEndOf="@id/profile_img_container"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@android:color/black"
-            android:text="Username"/>
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/center_line"
+            app:layout_constraintStart_toEndOf="@id/profile_img_container" />
 
     <View
             android:id="@+id/center_line"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="#ddd"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="1dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profile_img_container"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/tv_logout"
+            android:id="@+id/tv_logout_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/center_line"
-            app:layout_constraintStart_toEndOf="@id/profile_img_container"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:textColor="@android:color/black"
-            android:text="Sign out"/>
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/profile_img_container"
+            app:layout_constraintTop_toBottomOf="@id/center_line" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

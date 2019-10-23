@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "637911899588",
-    "firebase_url": "https://movieapplication-1da21.firebaseio.com",
-    "project_id": "movieapplication-1da21",
-    "storage_bucket": "movieapplication-1da21.appspot.com"
+    "project_number": "8383741265",
+    "firebase_url": "https://movietracker-17ce9.firebaseio.com",
+    "project_id": "movietracker-17ce9",
+    "storage_bucket": "movietracker-17ce9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:637911899588:android:c3e08878da3d2ab4",
+        "mobilesdk_app_id": "1:8383741265:android:9b1e3128bb954a26ea2770",
         "android_client_info": {
           "package_name": "com.example.movieapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "637911899588-g183qmt90a76gj19k3kfu5fpfpvfa5ep.apps.googleusercontent.com",
+          "client_id": "8383741265-ibgfqbqa4cb6p57bmnio56osihbbnlto.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAMJ4-FMGV39nAZMFGoHKxvwf7mo3Ic6tQ"
+          "current_key": "AIzaSyC9Kwwk5RzP_qbZcwEeNmit6ITZe48i-C0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "637911899588-g183qmt90a76gj19k3kfu5fpfpvfa5ep.apps.googleusercontent.com",
+              "client_id": "8383741265-ibgfqbqa4cb6p57bmnio56osihbbnlto.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/login_background"/>
+    <item android:drawable="@drawable/splash_background" android:gravity="center"
+            android:top="@dimen/splash_logo_push_vertical"
+            android:left="@dimen/splash_logo_push_horizontal"
+            android:right="@dimen/splash_logo_push_horizontal"
+            android:bottom="@dimen/splash_logo_push_vertical"/>
+    <item
+            android:bottom="@dimen/splash_logo_push_vertical"
+            android:left="@dimen/splash_logo_push_horizontal"
+            android:right="@dimen/splash_logo_push_horizontal"
+            android:top="@dimen/splash_logo_push_vertical">
+        <bitmap
+                android:gravity="clip_horizontal|clip_vertical"
+                android:src="@drawable/logo" />
+    </item>
+
+
+</layer-list>

@@ -1,58 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true" android:state_focused="true">
+    <item>
         <shape>
-            <solid android:color="@android:color/white"/>
             <stroke
                     android:width="@dimen/edittext_stroke"
-                    android:color="@android:color/darker_gray" />
-            <corners
-                    android:radius="@dimen/edittext_radius" />
+                    android:color="@color/colorAccent" />
+            <corners android:radius="@dimen/edittext_radius" />
         </shape>
     </item>
-
-    <item android:state_pressed="true" android:state_focused="false">
-        <shape>
-            <solid android:color="@android:color/white"/>
-            <stroke
-                    android:width="@dimen/edittext_stroke"
-                    android:color="@android:color/darker_gray" />
-            <corners
-                    android:radius="@dimen/edittext_radius" />
-        </shape>
-    </item>
-
-    <item android:state_pressed="false" android:state_focused="true">
-        <shape>
-            <solid android:color="@android:color/white"/>
-            <stroke
-                    android:width="@dimen/edittext_stroke"
-                    android:color="@android:color/darker_gray" />
-            <corners
-                    android:radius="@dimen/edittext_radius" />
-        </shape>
-    </item>
-
-    <item android:state_pressed="false" android:state_focused="false">
-        <shape>
-            <solid android:color="@android:color/darker_gray"/>
-            <stroke
-                    android:width="@dimen/edittext_stroke"
-                    android:color="@android:color/darker_gray" />
-            <corners
-                    android:radius="@dimen/edittext_radius" />
-        </shape>
-    </item>
-
-    <item android:state_enabled="true">
-        <shape>
-            <padding
-                    android:left="4dp"
-                    android:top="4dp"
-                    android:right="4dp"
-                    android:bottom="4dp"
-                    />
-        </shape>
-    </item>
-</selector>
+</layer-list>
