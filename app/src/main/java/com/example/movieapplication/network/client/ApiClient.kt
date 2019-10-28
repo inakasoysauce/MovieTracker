@@ -5,6 +5,7 @@ import com.example.movieapplication.util.ConfigInfo.BASE_URL
 import com.example.movieapplication.network.model.Movie
 import com.example.movieapplication.network.model.MovieCast
 import com.example.movieapplication.network.model.SearchResult
+import com.example.movieapplication.network.model.SimilarMovieResponse
 import com.example.movieapplication.network.service.ApiService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -27,9 +28,11 @@ class ApiClient {
         service = retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getMovieList(title: String) : Response<SearchResult> = service.getMoviesByTitle(API_KEY,title)
+    suspend fun multiSearch(title: String) : Response<SearchResult> = service.multiSearch(API_KEY,title)
 
     fun getMovieDetailsAsync(id: String) : Deferred<Response<Movie>> =  service.getMovieByIdAsync(id,API_KEY)
 
     fun getMovieCastAsync(id: String) : Deferred<Response<MovieCast>> = service.getMovieCastAsync(id,API_KEY)
+
+    fun getSimilarMoviesAsync(id: String) : Deferred<Response<SimilarMovieResponse>> = service.getSimilarMoviesAsync(id, API_KEY)
 }

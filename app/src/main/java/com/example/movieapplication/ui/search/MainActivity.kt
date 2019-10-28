@@ -2,13 +2,11 @@ package com.example.movieapplication.ui.search
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -26,6 +24,7 @@ import com.example.movieapplication.receiver.NetworkMonitor
 import com.example.movieapplication.ui.details.DetailsActivity
 import com.example.movieapplication.ui.login.LoginFragment
 import com.example.movieapplication.ui.login.LoginFragmentListener
+import com.example.movieapplication.ui.profile.ProfileActivity
 import com.example.movieapplication.ui.search.adapter.MovieAdapter
 import com.example.movieapplication.user.User
 import com.jakewharton.rxbinding.widget.RxTextView
@@ -37,14 +36,11 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedListener, LoginFragmentListener {
+class MainActivity : BaseActivity<SearchPresenter>(), ISearchScreen, MovieAdapter.MovieClickedListener, LoginFragmentListener {
 
     private var adapter: MovieAdapter? = null
 
     private var saved: Boolean = false
-
-    @Inject
-    lateinit var presenter: SearchPresenter
 
     @Inject
     lateinit var networkMonitor: NetworkMonitor
@@ -52,10 +48,10 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
     private var visibleFragment: Fragment? = null
 
     private var loginButton: TextView? = null
-    private var username : TextView? = null
+    private var username: TextView? = null
+    private var profilePicture : ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acivity_main)
         initComponents()
@@ -66,17 +62,21 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
         MovieTracker.movieComponent.inject(this)
     }
 
+    override fun createPresenter(): SearchPresenter {
+        return SearchPresenter(this)
+    }
+
 
     override fun initComponents() {
         adapter = MovieAdapter(this)
-        presenter.addView(this)
         subscribeOnNetworkStatusEvent()
         setTextChangeEvent()
         initDoneButton()
         setSearchButton()
         initNavigationView()
         showUserData()
-        setLoadingView(big_progress_bar)
+        setLoadingView(loading_screen)
+        startArrowAnimation()
     }
 
     private fun subscribeOnNetworkStatusEvent() {
@@ -118,12 +118,14 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
         val header = navigation_view.getHeaderView(0)
         loginButton = header.findViewById(R.id.tv_logout_login)
         username = header.findViewById(R.id.tv_username)
+        profilePicture = header.findViewById(R.id.img_nav_header)
         loginButton?.setOnClickListener {
             if (!User.loggedIn) {
                 showFragment(LoginFragment())
             } else
                 logOut()
         }
+        setMenuListener()
     }
 
     private fun initDoneButton() {
@@ -153,6 +155,26 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
         } else {
             username?.text = User.username
             loginButton?.text = getString(R.string.logout)
+            setProfilePicture()
+        }
+    }
+
+    private fun setProfilePicture() {
+        if (User.profilePicture != null){
+            profilePicture?.setImageBitmap(User.profilePicture)
+        }
+    }
+
+    private fun setMenuListener() {
+        navigation_view.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.account -> {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                    goToProfile()
+                    return@setNavigationItemSelectedListener true
+                }
+                else -> return@setNavigationItemSelectedListener false
+            }
         }
     }
 
@@ -162,7 +184,7 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
             error_text_view.visibility = TextView.GONE
             adapter?.clear()
             GlobalScope.launch(Dispatchers.Main) {
-                presenter.getMovies(title)
+                presenter?.getMovies(title)
             }
         }
     }
@@ -190,6 +212,7 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
 
     override fun addMovies(movies: ArrayList<SearchResultItem>?) {
         hideLoading()
+        hideArrow()
         movies?.let {
             adapter?.addMovies(it)
         }
@@ -233,6 +256,10 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
         return this
     }
 
+    private fun goToProfile() {
+        startActivity(Intent(this, ProfileActivity::class.java))
+    }
+
     override fun getCharSequence(
         viewID: Int,
         voteAverage: String,
@@ -251,17 +278,21 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
         search_bar.setLiftable(true)
     }
 
+    private fun startArrowAnimation() {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.shake)
+        img_arrow_up.startAnimation(animation)
+    }
+
+    private fun hideArrow() {
+        arrow_holder.visibility = View.GONE
+    }
+
     override fun onBackPressed() {
         if (visibleFragment == null) {
             super.onBackPressed()
         } else {
             hideFragment(visibleFragment!!)
         }
-    }
-
-    override fun onDestroy() {
-        presenter.destroyView()
-        super.onDestroy()
     }
 
     private fun showLoading() {
@@ -278,21 +309,4 @@ class MainActivity : BaseActivity(), ISearchScreen, MovieAdapter.MovieClickedLis
         loginButton?.text = getString(R.string.login)
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        ev?.let {
-            if (it.action == MotionEvent.ACTION_DOWN) {
-                val v = currentFocus
-                if (v is EditText) {
-                    val outRect = Rect()
-                    v.getGlobalVisibleRect(outRect)
-                    if (!outRect.contains(it.rawX.toInt(), it.rawY.toInt())) {
-                        v.clearFocus()
-                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(v.windowToken, 0)
-                    }
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev)
-    }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/login_background"/>
+    <item android:drawable="@drawable/main_background"/>
     <item android:drawable="@drawable/splash_background" android:gravity="center"
             android:top="@dimen/splash_logo_push_vertical"
             android:left="@dimen/splash_logo_push_horizontal"

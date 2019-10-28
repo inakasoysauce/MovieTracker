@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
-class LoginFragment : BaseFragment(), LoginView {
+class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
 
     private val login = 0
     private val register = 1
@@ -26,9 +26,6 @@ class LoginFragment : BaseFragment(), LoginView {
     private var motionLayout: MotionLayout? = null
 
     private var listener: LoginFragmentListener? = null
-
-    @Inject
-    lateinit var presenter: LoginPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,11 +38,14 @@ class LoginFragment : BaseFragment(), LoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MovieTracker.movieComponent.inject(this)
-        presenter.addView(this)
         Log.i("LoginFragment", "onCreate")
     }
 
-    override fun onAttach(context: Context?) {
+    override fun createPresenter(): LoginPresenter {
+        return LoginPresenter(this)
+    }
+
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as LoginFragmentListener
     }
@@ -78,14 +78,14 @@ class LoginFragment : BaseFragment(), LoginView {
     private fun attemptLogin() {
         if (checkEditTextsLogin()) {
             showLoading()
-            presenter.attemptLogin(et_login_email.text.toString(), et_login_password.text.toString())
+            presenter?.attemptLogin(et_login_email.text.toString(), et_login_password.text.toString())
         }
     }
 
     private fun attemptRegister() {
         if (checkEditTextsRegister()) {
             showLoading()
-            presenter.attemptRegister(et_login_email.text.toString(), et_login_password.text.toString(), et_login_username.text.toString())
+            presenter?.attemptRegister(et_login_email.text.toString(), et_login_password.text.toString(), et_login_username.text.toString())
         }
     }
 

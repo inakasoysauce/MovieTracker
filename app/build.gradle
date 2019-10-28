@@ -69,17 +69,18 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //firebase
-    implementation 'com.google.firebase:firebase-core:17.2.0'
+    implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.firebase:firebase-functions:19.0.1'
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
 
 
     //events
     implementation 'com.github.halcyxn:kotlin-events:2.0'
 
     //motion_layout
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
 
 }
 

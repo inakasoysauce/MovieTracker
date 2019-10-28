@@ -20,4 +20,14 @@
     <string name="not_logged_in">Not logged in</string>
     <string name="back">Back</string>
     <string name="logout">Log out</string>
+    <string name="search_hint">Search here for movies, actors or directors</string>
+    <string name="per_10"> / 10</string>
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="see_cast_list">See cast list</string>
+    <string name="see_pictures">See pictures</string>
+    <string name="rate_movie">Rate this movie</string>
+    <string name="more_like_this">More like this</string>
+    <string name="change_password">Change password</string>
+    <string name="my_favourite_movies">My favourite movies</string>
+    <string name="my_friends">My Friends</string>
 </resources>

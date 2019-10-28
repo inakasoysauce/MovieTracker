@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.search_result_item.view.*
 
 class MovieAdapter(private val listener: MovieClickedListener) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var movies : ArrayList<SearchResultItem> = ArrayList()
+    private var searchResults : ArrayList<SearchResultItem> = ArrayList()
 
     interface MovieClickedListener {
         fun goToDetails(id: String)
@@ -32,14 +32,14 @@ class MovieAdapter(private val listener: MovieClickedListener) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        return movies.size
+        return searchResults.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val searchResultItem = movies[position]
+        val searchResultItem = searchResults[position]
         holder.titleTv.text = searchResultItem.title
-        holder.releaseDateTv.text = searchResultItem.releaseDate
-        holder.ratingTv.text = listener.getCharSequence(R.string.search_result_rating,searchResultItem.voteAverage.toString(),searchResultItem.voteCount.toString())
+        holder.releaseDateTv.text = searchResultItem.getFirstInfo()
+        holder.ratingTv.text = searchResultItem.getSecondInfo(listener.getContext())
         holder.movieId =  searchResultItem.id.toString()
         GlideApp.with(listener.getContext())
             .load(imageUrl + searchResultItem.posterPath)
@@ -49,13 +49,13 @@ class MovieAdapter(private val listener: MovieClickedListener) : RecyclerView.Ad
 
     fun addMovies(movies: ArrayList<SearchResultItem>?){
         movies?.let {
-            this.movies.addAll(it)
+            this.searchResults.addAll(it)
         }
         notifyDataSetChanged()
     }
 
     fun clear() {
-        movies.clear()
+        searchResults.clear()
         notifyDataSetChanged()
     }
 

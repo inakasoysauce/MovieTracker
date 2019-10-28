@@ -8,6 +8,7 @@ import com.example.movieapplication.dagger.AppComponent
 import com.example.movieapplication.dagger.DaggerAppComponent
 import com.example.movieapplication.dagger.PresenterModule
 import com.example.movieapplication.dagger.ServiceModule
+import com.example.movieapplication.ui.splash.SplashActivity
 
 class MovieTracker : Application() {
 
@@ -40,6 +41,8 @@ class MovieTracker : Application() {
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                if (activity !is SplashActivity)
+                    activity.setTheme(R.style.AppTheme_NoActionBar)
             }
         })
     }

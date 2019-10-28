@@ -3,25 +3,24 @@ package com.example.movieapplication.ui.details
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movieapplication.MovieTracker
 import com.example.movieapplication.R
+import com.example.movieapplication.base.BaseActivity
 import com.example.movieapplication.network.model.Movie
 import com.example.movieapplication.network.model.MovieCast
+import com.example.movieapplication.ui.details.adapter.SimilarMovieAdapter
 import com.example.movieapplication.util.ConfigInfo.imageUrl
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.cast_list_item.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DetailsActivity : AppCompatActivity(), IDetailsScreen {
+class DetailsActivity : BaseActivity<DetailsPresenter>(), IDetailsScreen {
 
-    @Inject
-    lateinit var presenter: DetailsPresenter
+    private var adapter: SimilarMovieAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +28,27 @@ class DetailsActivity : AppCompatActivity(), IDetailsScreen {
         initComponents()
         GlobalScope.launch(
             Dispatchers.IO
-        ) { presenter.getMovieDetails(intent.getStringExtra("id")) }
+        ) { presenter?.getMovieDetails(intent.getStringExtra("id")) }
     }
 
     init {
         MovieTracker.movieComponent.inject(this)
     }
 
+    override fun createPresenter(): DetailsPresenter {
+        return DetailsPresenter(this)
+    }
+
     override fun initComponents() {
-        presenter.addView(this)
-        showLoading()
+        setLoadingView(loading_screen)
+        initRecyclerView()
+        showMainLoading()
+    }
+
+    private fun initRecyclerView() {
+        adapter = SimilarMovieAdapter(this)
+        rv_similar_movies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rv_similar_movies.adapter = adapter
     }
 
     private fun setGenres(movie: Movie) {
@@ -61,21 +71,19 @@ class DetailsActivity : AppCompatActivity(), IDetailsScreen {
                 Glide.with(this)
                     .load(imageUrl + cast.profile_path)
                     .into(itemView.cast_list_image)
-                ll_cast_list.addView(itemView)
             }
         }
 
     }
 
     override fun showDetails(movie: Movie?) {
-        hideLoading()
+        hideMainLoading()
         movie?.let {
             details_title.text = it.title
             details_release_date.text = it.release_date
             details_description.text = it.overview
-            details_rating.text = getString(R.string.details_rating, it.vote_average.toString())
+            details_rating.text = it.vote_average.toString()
             details_vote_count.text = getString(R.string.details_vote_count, it.vote_count.toString())
-            details_budget.text = getString(R.string.details_budget, it.budget.toString())
             setGenres(it)
             Glide.with(this)
                 .load(imageUrl + it.poster_path)
@@ -83,16 +91,13 @@ class DetailsActivity : AppCompatActivity(), IDetailsScreen {
         }
     }
 
+    override fun showSimilarMovies(similarMovies: ArrayList<Movie>?) {
+        adapter?.addAll(similarMovies)
+    }
+
     private fun showLoading() {
-        details_progress_bar.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        details_progress_bar.visibility = View.GONE
-    }
-
-    override fun onDestroy() {
-        presenter.destroyView()
-        super.onDestroy()
     }
 }

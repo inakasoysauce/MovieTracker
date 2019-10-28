@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background"
+        android:id="@+id/main_layout"
+        tools:context=".ui.profile.ProfileActivity">
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/profile_img_container"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="75dp">
+
+        <ImageView
+                android:id="@+id/profile_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dummy_profile_picture"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/fredoka_one"
+            android:text="Kulcsi96"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_img_container"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_username"/>
+
+    <TextView
+            android:id="@+id/btn_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:text="@string/change_password"
+            android:clickable="true"
+            android:background="@drawable/textview_background_click"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_username"
+            android:focusable="true" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password"/>
+
+    <TextView
+            android:id="@+id/btn_see_favourites"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:clickable="true"
+            android:textColor="@android:color/white"
+            android:text="@string/my_favourite_movies"
+            android:background="@drawable/textview_background_click"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password"
+            android:focusable="true" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_favourites"/>
+
+    <TextView
+            android:id="@+id/btn_see_friends"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:text="@string/my_friends"
+            android:clickable="true"
+            android:background="@drawable/textview_background_click"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_favourites"
+            android:focusable="true" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_friends"/>
+
+    <include android:id="@+id/loading_screen" layout="@layout/loading_screen" android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

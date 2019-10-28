@@ -7,9 +7,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class SearchPresenter : BasePresenter<ISearchScreen> {
+class SearchPresenter(private var view: ISearchScreen?) : BasePresenter {
 
-    private var view: ISearchScreen? = null
 
     @Inject
     lateinit var client: ApiClient
@@ -22,19 +21,9 @@ class SearchPresenter : BasePresenter<ISearchScreen> {
     }
 
 
-    override fun addView(view: ISearchScreen) {
-        this.view = view
-        subscribeToTopic()
-    }
-
-
-    private fun subscribeToTopic() {
-        FirebaseMessaging.getInstance().subscribeToTopic("my_topic")
-    }
-
     suspend fun getMovies(title: String) {
         try {
-            val response = client.getMovieList(title)
+            val response = client.multiSearch(title)
             if (response.isSuccessful) {
                 val result = response.body()
                 result?.let {
