@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
-        android:id="@+id/main_layout"
         tools:context=".ui.profile.ProfileActivity">
 
     <androidx.cardview.widget.CardView
@@ -13,17 +13,18 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="50dp"
+            app:cardCornerRadius="75dp"
+            android:translationZ="-10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="75dp">
+            app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
                 android:id="@+id/profile_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/dummy_profile_picture"/>
+                android:src="@drawable/dummy_profile_picture" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -32,87 +33,118 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/fredoka_one"
-            android:text="Kulcsi96"
             android:textColor="@android:color/white"
             android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_img_container"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_img_container" />
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorAccent"
             android:layout_marginTop="40dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_username"/>
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/tv_username" />
 
     <TextView
             android:id="@+id/btn_change_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dp"
+            android:background="@drawable/textview_background_click"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:textSize="16sp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/white"
             android:text="@string/change_password"
-            android:clickable="true"
-            android:background="@drawable/textview_background_click"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_username"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@id/tv_username" />
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@id/btn_change_password"/>
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password" />
 
     <TextView
-            android:id="@+id/btn_see_favourites"
+            android:id="@+id/btn_see_favourite_movies"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@drawable/textview_background_click"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:clickable="true"
-            android:textColor="@android:color/white"
             android:text="@string/my_favourite_movies"
-            android:background="@drawable/textview_background_click"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_change_password"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password" />
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@id/btn_see_favourites"/>
+            app:layout_constraintTop_toBottomOf="@id/btn_see_favourite_movies" />
+
+    <TextView
+            android:id="@+id/btn_see_favourite_persons"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_background_click"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/my_favourite_persons"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_favourite_movies" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_favourite_persons" />
 
     <TextView
             android:id="@+id/btn_see_friends"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@drawable/textview_background_click"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:textSize="16sp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/white"
             android:text="@string/my_friends"
-            android:clickable="true"
-            android:background="@drawable/textview_background_click"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_see_favourites"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@id/btn_see_favourite_persons" />
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@id/btn_see_friends"/>
+            app:layout_constraintTop_toBottomOf="@id/btn_see_friends" />
 
-    <include android:id="@+id/loading_screen" layout="@layout/loading_screen" android:visibility="gone"/>
+    <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+            android:id="@+id/loading_screen"
+            layout="@layout/loading_screen"
+            android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

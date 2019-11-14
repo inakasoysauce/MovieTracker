@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.movieapplication.R
 import com.example.movieapplication.base.BaseActivity
-import com.example.movieapplication.ui.search.MainActivity
+import com.example.movieapplication.ui.search.SearchActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activtiy_splash.*
 
-class SplashActivity : BaseActivity<SplashPresenter>(), SplashView {
+class SplashActivity : BaseActivity<SplashPresenter, SplashView>(), SplashView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +21,12 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashView {
     }
 
     override fun goToMainScreen() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        val startIntent = Intent(this, SearchActivity::class.java)
+        startActivity(startIntent)
         finish()
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showError(message: String) {
         Snackbar.make(main_layout, message, Snackbar.LENGTH_LONG).show()
     }
 }

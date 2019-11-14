@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import com.example.movieapplication.event_bus.NetworkEvent
+import com.example.movieapplication.event_bus.Events
 import com.example.movieapplication.network.NetworkStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -23,13 +23,13 @@ class NetworkMonitor : ConnectivityManager.NetworkCallback() {
 
     override fun onAvailable(network: Network) {
         runBlocking(Dispatchers.Main) {
-            NetworkEvent.event(NetworkStatus.ONLINE)
+            Events.networkEvent(NetworkStatus.ONLINE)
         }
     }
 
     override fun onLost(network: Network) {
         runBlocking(Dispatchers.Main) {
-            NetworkEvent.event(NetworkStatus.OFFLINE)
+            Events.networkEvent(NetworkStatus.OFFLINE)
         }
     }
 }

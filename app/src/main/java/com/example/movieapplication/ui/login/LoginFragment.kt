@@ -8,16 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.fragment.app.Fragment
 import com.example.movieapplication.MovieTracker
 import com.example.movieapplication.R
 import com.example.movieapplication.base.BaseFragment
 import com.example.movieapplication.util.setTextWidthFade
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_login.*
-import javax.inject.Inject
 
-class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
+class LoginFragment : BaseFragment<LoginPresenter, LoginView>(), LoginView {
 
     private val login = 0
     private val register = 1
@@ -52,6 +50,10 @@ class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initComponents()
+    }
+
+    override fun initComponents() {
         initButtons()
     }
 
@@ -124,15 +126,6 @@ class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
         return checkEditTextsLogin() && checkEditTextIsNotEmpty(et_login_username)
     }
 
-    private fun checkEditTextIsNotEmpty(editText: EditText): Boolean {
-        return if (editText.text.toString().isEmpty()) {
-            editText.error = "Field is empty"
-            editText.requestFocus()
-            false
-        } else
-            true
-    }
-
     private fun emailValid(email: EditText): Boolean {
         return if (email.text.toString().contains('@')) {
             true
@@ -141,6 +134,14 @@ class LoginFragment : BaseFragment<LoginPresenter>(), LoginView {
             email.requestFocus()
             false
         }
+    }
+
+    override fun getEnterAnimation(): Int {
+        return R.anim.slide_in_right
+    }
+
+    override fun getExitAnimation(): Int {
+        return R.anim.slide_out_right
     }
 
     override fun onDestroyView() {

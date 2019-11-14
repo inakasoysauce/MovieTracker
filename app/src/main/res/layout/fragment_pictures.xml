@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#080808">
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_pictures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingStart="70dp"
+            android:paddingEnd="70dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/rv_pictures"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pictures"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

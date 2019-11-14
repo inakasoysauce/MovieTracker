@@ -2,13 +2,14 @@ package com.example.movieapplication.base
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<P : BasePresenter> : Fragment(), BaseView {
+abstract class BaseFragment<P : BasePresenter<V>, V : BaseView> : Fragment(), BaseView, SlidableFragment {
 
     private var listener: BaseFragmentListener? = null
 
-    protected var presenter : P? = null
+    protected var presenter: P? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -20,13 +21,34 @@ abstract class BaseFragment<P : BasePresenter> : Fragment(), BaseView {
         presenter = createPresenter()
     }
 
-    abstract fun createPresenter() : P
+    abstract fun createPresenter(): P
 
-    protected fun showLoading() {
+    override fun showLoading() {
         listener?.showMainLoading()
     }
 
-    protected fun hideLoading() {
+    override fun hideLoading() {
         listener?.hideMainLoading()
+    }
+
+    override fun getFragment(): Fragment {
+        return this
+    }
+
+    protected fun hideMe() {
+        listener?.hideContainedFragment(this)
+    }
+
+    protected fun checkEditTextIsNotEmpty(editText: EditText): Boolean {
+        return if (editText.text.toString().isEmpty()) {
+            editText.error = "Field is empty"
+            editText.requestFocus()
+            false
+        } else
+            true
+    }
+
+    override fun showError(message: String) {
+        listener?.showError(message)
     }
 }

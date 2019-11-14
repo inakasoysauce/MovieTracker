@@ -6,14 +6,27 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.example.movieapplication.dagger.AppComponent
 import com.example.movieapplication.dagger.DaggerAppComponent
-import com.example.movieapplication.dagger.PresenterModule
 import com.example.movieapplication.dagger.ServiceModule
+import com.example.movieapplication.ui.search.SearchActivity
 import com.example.movieapplication.ui.splash.SplashActivity
+import java.util.*
 
 class MovieTracker : Application() {
 
     companion object {
         lateinit var movieComponent: AppComponent
+
+        val activityList = Stack<Activity>()
+
+        fun goBackToSearch() {
+            activityList.forEach {
+                if (it !is SearchActivity) {
+                    it.finish()
+                } else {
+                    it.shouldCloseFavourites = true
+                }
+            }
+        }
     }
 
     init {
@@ -31,7 +44,9 @@ class MovieTracker : Application() {
 
             override fun onActivityStarted(activity: Activity) {}
 
-            override fun onActivityDestroyed(activity: Activity) {}
+            override fun onActivityDestroyed(activity: Activity) {
+                activityList.remove(activity)
+            }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
 
@@ -43,14 +58,16 @@ class MovieTracker : Application() {
                 activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 if (activity !is SplashActivity)
                     activity.setTheme(R.style.AppTheme_NoActionBar)
+                activityList.push(activity)
             }
         })
     }
 
 
+
+
     private fun initDagger(): AppComponent =
         DaggerAppComponent.builder()
-            .presenterModule(PresenterModule())
             .serviceModule(ServiceModule())
             .build()
 }

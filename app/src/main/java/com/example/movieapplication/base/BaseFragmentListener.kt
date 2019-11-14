@@ -1,7 +1,10 @@
 package com.example.movieapplication.base
 
-interface BaseFragmentListener {
+import androidx.fragment.app.Fragment
+
+interface BaseFragmentListener : BaseView {
 
     fun showMainLoading()
     fun hideMainLoading()
+    fun hideContainedFragment(fragment: SlidableFragment)
 }

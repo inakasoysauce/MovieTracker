@@ -4,12 +4,21 @@ import android.content.Context
 import com.example.movieapplication.R
 import com.google.gson.annotations.SerializedName
 
-class SearchResultItem {
+open class SearchResultItem {
 
     val id: Int? = null
 
+    companion object {
+        const val tvShow = "tv"
+        const val movie = "movie"
+        const val person = "person"
+    }
+
     @SerializedName("media_type")
     val mediaType: String? = null
+        get() {
+            return field ?: getType()
+        }
 
     @SerializedName("poster_path")
     val posterPath: String? = null
@@ -28,10 +37,7 @@ class SearchResultItem {
 
     val title: String? = null
         get() {
-            return if (mediaType == movie) {
-                field
-            } else
-                name
+            return field ?: name
 
         }
 
@@ -52,9 +58,17 @@ class SearchResultItem {
     @SerializedName("known_for")
     val knownForList: ArrayList<KnownFor>? = null
 
-    private val tvShow = "tv"
-    private val movie = "movie"
-    private val person = "person"
+    val birthday: String? = null
+
+    private fun getType(): String {
+        if (name != null) {
+            if (birthday != null) {
+                return person
+            }
+            return tvShow
+        }
+        return movie
+    }
 
     fun getFirstInfo(): String? {
         return when (mediaType) {
@@ -80,8 +94,14 @@ class SearchResultItem {
             if (it.isNotEmpty())
                 return it[0].title
         }
+        if (birthday != null)
+            return birthday
         return ""
     }
+
+    fun isMovie(): Boolean = mediaType == movie
+    fun isTvShow(): Boolean = mediaType == tvShow
+    fun isPerson(): Boolean = mediaType == person
 }
 
 class KnownFor {

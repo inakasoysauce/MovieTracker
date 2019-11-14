@@ -4,5 +4,4 @@ import com.example.movieapplication.base.BaseView
 
 interface SplashView : BaseView {
     fun goToMainScreen()
-    fun showErrorMessage(message: String)
 }
