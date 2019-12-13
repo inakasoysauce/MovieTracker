@@ -1,7 +1,6 @@
 package com.example.movieapplication.base
 
 import android.content.Context
-import android.os.Bundle
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 
@@ -13,12 +12,8 @@ abstract class BaseFragment<P : BasePresenter<V>, V : BaseView> : Fragment(), Ba
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener = context as BaseFragmentListener
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         presenter = createPresenter()
+        listener = context as BaseFragmentListener
     }
 
     abstract fun createPresenter(): P

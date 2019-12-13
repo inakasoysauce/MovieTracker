@@ -6,6 +6,7 @@
         android:background="@drawable/main_background"
         android:clickable="true"
         android:focusable="true"
+        android:id="@+id/motion_layout"
         app:layoutDescription="@xml/login_register_motion_scene">
 
     <TextView

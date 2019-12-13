@@ -1,7 +1,6 @@
 package com.example.movieapplication.user
 
 import com.example.movieapplication.network.model.*
-import kotlin.concurrent.fixedRateTimer
 
 object User {
     var username: String? = null

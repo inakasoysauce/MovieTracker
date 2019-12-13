@@ -66,4 +66,5 @@
     <string name="recommend">Recommend</string>
     <string name="recommendations">Recommendations</string>
     <string name="recommendations_title">Recommendations:</string>
+    <string name="channel_name">Movie_Tracker</string>
 </resources>

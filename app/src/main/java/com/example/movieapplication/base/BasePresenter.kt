@@ -1,6 +1,5 @@
 package com.example.movieapplication.base
 
-import com.example.movieapplication.MovieTracker
 import com.example.movieapplication.network.client.ApiClient
 import javax.inject.Inject
 

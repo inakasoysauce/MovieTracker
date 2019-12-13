@@ -80,6 +80,7 @@ class ProfileActivity : BaseActivity<ProfilePresenter, ProfileView>(), ProfileVi
     private fun setProfilePicture() {
         Picasso.get()
             .load(User.picture_path)
+            .placeholder(R.drawable.dummy_profile_picture)
             .into(profile_img)
     }
 

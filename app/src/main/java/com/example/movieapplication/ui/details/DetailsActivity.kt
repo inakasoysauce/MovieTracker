@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.movieapplication.MovieTracker
 import com.example.movieapplication.R
 import com.example.movieapplication.base.BaseActivity
@@ -156,9 +155,6 @@ class DetailsActivity : BaseActivity<DetailsPresenter, DetailsView>(), DetailsVi
             details_rating.text = it.vote_average.toString()
             details_vote_count.text = getString(R.string.details_vote_count, it.vote_count.toString())
             setGenres(it)
-            Glide.with(this)
-                .load(imageUrl + it.poster_path)
-                .into(details_poster)
             Picasso.get()
                 .load(imageUrl + it.poster_path)
                 .into(details_poster)

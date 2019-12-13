@@ -13,13 +13,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient {
 
-    private var retrofit: Retrofit = Retrofit.Builder()
+    private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(OkHttpClient())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private var service: ApiService
+    private val service: ApiService
 
     init {
         service = retrofit.create(ApiService::class.java)
